@@ -1,10 +1,10 @@
 {
   "bosworkspace": {
     "widget": {
-      "home": {
+      "app": {
         "metadata": {
-          "name": "Hello",
-          "description": "Hello world widget"
+          "name": "Build Box",
+          "description": "Hackathon platform"
         }
       }
     }
