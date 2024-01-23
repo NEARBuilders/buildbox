@@ -1,0 +1,12 @@
+{
+  "bosworkspace": {
+    "widget": {
+      "home": {
+        "metadata": {
+          "name": "Hello",
+          "description": "Hello world widget"
+        }
+      }
+    }
+  }
+}

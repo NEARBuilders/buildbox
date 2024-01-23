@@ -1,0 +1,7 @@
+{
+  "name": "buildbox",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "./../bos-workspace/bin/bw.js dev"
+  }
+}
