@@ -2,6 +2,9 @@
   "name": "buildbox",
   "version": "1.0.0",
   "scripts": {
-    "dev": "./../bos-workspace/bin/bw.js dev"
+    "dev": "bos-workspace dev"
+  },
+  "dependencies": {
+    "bos-workspace": "^0.0.1-alpha.4"
   }
 }
