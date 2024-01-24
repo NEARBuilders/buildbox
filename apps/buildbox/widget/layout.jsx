@@ -15,11 +15,11 @@ const ContentContainer = styled.div`
 `;
 
 function Header() {
-  return <>header</>;
+  return <></>;
 }
 
 function Footer() {
-  return <>footer</>;
+  return <></>;
 }
 
 // Define the new component that follows the AppLayout pattern

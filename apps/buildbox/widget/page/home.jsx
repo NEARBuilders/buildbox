@@ -29,11 +29,10 @@ return (
     <HeroSection className="home-hero">
       <div className="home-heading">
         <h1 className="home-header">
-          <span>🔨 📦 buildbox</span>
+          <span>🔨 📦 build box</span>
           <br />
         </h1>
       </div>
     </HeroSection>
-    <Widget src="buildbox.near/widget/hackathon.browse" />
   </>
 );

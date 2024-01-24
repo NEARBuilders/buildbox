@@ -1,4 +1,5 @@
 // Feed
+const app = props.app || "test";
 const type = props.type || "hackathon";
 
 const keys = Social.keys(`*/test/${type}/*`, "final", {
@@ -16,7 +17,7 @@ function flattenObject(obj, parentKey) {
       paths = paths.concat(flattenObject(obj[key], currentPath));
     } else {
       // paths.push(`${currentPath}@${obj[key]}`); // if we want blockHeight
-      paths.push(currentPath);
+      paths.push(currentPath + "/**");
     }
   });
 
@@ -34,8 +35,6 @@ const data = Social.get(flattenedKeys, "final");
 if (!data) {
   return "Loading...";
 }
-
-return <p>{JSON.stringify(data)}</p>;
 
 const Container = styled.div`
   margin: 0 auto;
@@ -73,15 +72,13 @@ const processData = useCallback(
     const allItems = accounts
       .map((account) => {
         const accountId = account[0];
-        return Object.entries(account[1][type]).map((kv) => {
+        
+        return Object.entries(account[1][app][type]).map((kv) => {
           return {
             accountId,
             type: type,
             name: kv[0],
-            metadatadata: Social.get(
-              `${accountId}/${type}/${kv[0]}/metadata/**`,
-              "final"
-            ),
+            metadata: kv[1].metadata,
           };
         });
       })
@@ -94,7 +91,7 @@ const processData = useCallback(
   [type]
 );
 
-const items = processData(things);
+const items = processData(data);
 
 if (!items) {
   return "Loading data...";
@@ -185,14 +182,6 @@ return (
   <Container>
     <div className="d-flex justify-content-between align-items-center mb-3">
       <h3>every {type}</h3>
-      {/* <div>
-        <button className="classic me-2">
-          <i className="bi bi-upload" />
-        </button>
-        <button className="classic">
-          <i className="bi bi-gear" />
-        </button>
-      </div> */}
     </div>
     <Widget
       src="everycanvas.near/widget/ItemFeed"

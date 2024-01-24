@@ -1,1 +1,0 @@
-// This is just all submissions across all hackathons

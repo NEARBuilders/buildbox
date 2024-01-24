@@ -1,8 +1,35 @@
+// this is where you can create a hackathon
+
+// then you have people submit projects to the hackathon, but they create the project locally
+
+const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || {
+  normalize: (s) => s,
+};
+
+const type = props.type || "project";
+const app = props.app || "test";
+
+const accountId = context.accountId;
+
+const admins = ["efiz.near"];
+
+if (!admins.includes(accountId)) {
+  // unauthorized, return 401
+  return <p>401 unauthorized.</p>;
+}
+
+const hackathons = Social.keys("*/test/hackathon/**", "final", {
+  return_type: "BlockHeight",
+});
+
+if (!hackathons) {
+  return <p>No hackathons found.</p>;
+}
+
 /**
  * build box submit hackathon
  * or submit project to whatever hackathon is main
  */
-
 
 const Root = styled.div`
   width: 100%;
@@ -94,6 +121,11 @@ const SubmitButton = styled.button`
   &:hover {
     background-color: #45a049;
   }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
 const [title, setTitle] = useState("");
@@ -114,90 +146,47 @@ const handleCheckboxChange = (track) => {
   }
 };
 
-const normalize = (v) => {
-  // snag from devhub
-};
-
 const handleSubmit = () => {
   if (contactInfo && consentChecked) {
-    const projectPath = `${context.accountId}/every/project/${normalize(title)}`;
-    const notes = ""; // what I learned
-    // Add your submission logic here
-    console.log("Form submitted:", {
-      title,
-      description,
-      tracks,
-      teammates,
-      projectLink,
-      demoLink,
-      contactInfo,
-    });
+    const { title, description, image, backgroundImage, category, tags } = v; // comes fr
+    const id = normalize(title);
+    const hackathonPath = `${context.accountId}/${app}/${type}/${id}`;
 
-    Social.set({
-      post: {
-        main: JSON.stringify({
-          text: `I've just submitted my project to abstraction hacks #abstraction #hack #build #everything\n\n[EMBED](buildbox.near/widget/embed?project=${projectPath})\n\n ${notes}`,
-          image: "",
-          type: "md",
-          metadata: {},
-        }),
-      },
-      every: {
-        // it's like we create a project and a submission at the same time
-        project: {
-          "my-project": {
-            // normalized title?
-            "": JSON.stringify({
-              linkedAccounts: {
-                admin: "",
-              },
-              tracks,
-              teammates,
-              projectLink,
-              demoLink,
-              contactInfo,
-              repository,
-            }),
-            metadata: {
-              title,
-              description,
-              image,
-              backgroundImage,
-              category: "", // this would be nice to be a thing stored somewhere
-              type: "every.near/type/project", // this is type stored on chain, defines stringified JSON
-              tags: {},
-            },
-          },
-        },
-      },
-      every: {
-        video: {
-          "my-video-title": {
-            // upload your video here (or attach link to elsewhere)
-            "": JSON.stringify({}),
-            metadata: {
-              title,
-              description,
-              image,
-              backgroundImage,
-              category: "",
-              tags: {
-                hack: "",
+    Social.set(
+      {
+        // post: {
+        //   main: JSON.stringify({
+        //     text: `I've just created a hackathon! #build #every #hackathon \n\n[EMBED](buildbox.near/widget/embed?hackathon=${hackathonPath})\n\n`,
+        //     image: "",
+        //     type: "md",
+        //     metadata: {},
+        //   }),
+        // },
+        [app]: {
+          [type]: {
+            [id]: {
+              "": JSON.stringify({
+                // what data does a hackathon have?
+              }),
+              metadata: {
+                name: title,
+                description,
+                image,
+                backgroundImage,
+                type: "every.near/type/hackathon",
+                category,
+                tags,
               },
             },
           },
         },
       },
-      buildbox: {
-        hackathon: {
-          "abstraction-hacks-W2024": {
-            submission: {
-              "----every/project----": "", // get from community voice, creates ID from accountId + project name
-            },
-          },
-        },
-      },
-    });
+      {
+        force: true,
+        onCommit: (v) => console.log("onCommit", v),
+        onCancel: (v) => console.log("onCancel", v),
+      }
+    );
   } else {
     // alert("Please provide your Personal Contact Info and consent to submit.");
   }
@@ -205,13 +194,7 @@ const handleSubmit = () => {
 
 return (
   <Root>
-    <Header>Submit Project: Abstraction Hacks</Header>
-    <Subheader>
-      Post your submission for Abstraction Hacks. Add a link to your component,
-      GitHub, and tag your team members. On a checklist, indicate which tracks
-      you are opt-in for.
-    </Subheader>
-
+    <Header>submit project</Header>
     <FormContainer>
       <FormGroup>
         <Label>Title</Label>
