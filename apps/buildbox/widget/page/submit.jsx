@@ -11,19 +11,12 @@ const app = props.app || "test";
 
 const accountId = context.accountId;
 
-const admins = ["efiz.near"];
-
-if (!admins.includes(accountId)) {
-  // unauthorized, return 401
-  return <p>401 unauthorized.</p>;
-}
-
-const hackathons = Social.keys("*/test/hackathon/**", "final", {
+const things = Social.keys(`*/${app}/${type}/**`, "final", {
   return_type: "BlockHeight",
 });
 
-if (!hackathons) {
-  return <p>No hackathons found.</p>;
+if (!things) {
+  return <p>No {type}s found.</p>;
 }
 
 /**
@@ -150,13 +143,13 @@ const handleSubmit = () => {
   if (contactInfo && consentChecked) {
     const { title, description, image, backgroundImage, category, tags } = v; // comes fr
     const id = normalize(title);
-    const hackathonPath = `${context.accountId}/${app}/${type}/${id}`;
+    const path = `${context.accountId}/${app}/${type}/${id}`;
 
     Social.set(
       {
         // post: {
         //   main: JSON.stringify({
-        //     text: `I've just created a hackathon! #build #every #hackathon \n\n[EMBED](buildbox.near/widget/embed?hackathon=${hackathonPath})\n\n`,
+        //     text: `I've just created a hackathon! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/embed?${type}=${path})\n\n`,
         //     image: "",
         //     type: "md",
         //     metadata: {},
@@ -173,7 +166,7 @@ const handleSubmit = () => {
                 description,
                 image,
                 backgroundImage,
-                type: "every.near/type/hackathon",
+                type: `every.near/type/${type}`, // for later
                 category,
                 tags,
               },
@@ -303,7 +296,7 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        disabled={!contactInfo || !consentChecked}
+        disabled={!title || !contactInfo || !consentChecked}
       >
         Submit
       </SubmitButton>
