@@ -91,11 +91,13 @@ const CheckBox = styled.input`
 
 const ConsentContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 `;
 
 const ConsentCheckbox = styled.input`
   margin-right: 5px;
+  margin-top: 5px;
 `;
 
 const ConsentLabel = styled.label`
@@ -130,6 +132,7 @@ const [demoLink, setDemoLink] = useState("");
 const [contactInfo, setContactInfo] = useState("");
 const [consentChecked, setConsentChecked] = useState(false);
 const [referrer, setReferrer] = useState("");
+const [learning, setLearning] = useState("");
 
 const handleCheckboxChange = (track) => {
   if (tracks.includes(track)) {
@@ -185,14 +188,39 @@ const handleSubmit = () => {
   }
 };
 
+const pageDescription = `Congratulations for making it here! Please be sure to fill out all of the following fields in the suggested format so we can efficiently review them in the most efficient way.
+
+To be eligible for the Abstraction Hacks prize, you must:
+
+- Submit to only one team for General Prize. For Mintbase, Potluck you can submit multiple.
+- Have a public GitHub repository with a readme.md file.
+- Include a video to a demo in your readme.md file.
+- If submitting a previous project, you must have made significant changes during the hackathon.
+- Specify which bounties you are tackling
+
+**Additional Details**
+
+- Submit to only one team: You may not submit the same project to multiple teams.
+- Public GitHub repository: Your GitHub repository must be public so that the judges can view your code.
+- Readme.md file: Your readme.md file should include a description of your project, how to run it, and any other relevant information.
+- Video to a demo: Your video demo should show your project in action.
+- Significant changes: If submitting a previous project, you must have made significant changes during the hackathon and provide proof of what you changed during the hackathon. This could includes adding dates and timestamps of any code written before and after the hackathon (ie: adding new features, improving the performance of your code, o fixing bugs).`;
+
 return (
   <Root>
-    <Header>submit project</Header>
+    <Header>ABSTRACTION HACKS PROJECTS SUBMISSION</Header>
+    <div style={{ maxWidth: 600, width: "80%" }}>
+      <Markdown text={pageDescription} />
+    </div>
     <FormContainer>
       <FormGroup>
-        <Label>Title</Label>
-        <Subtext>{/* Populate subtext here */}</Subtext>
+        <Label htmlFor="title">
+          Title<span className="text-danger">*</span>
+        </Label>
+        <Subtext>What do you want to call this project?</Subtext>
         <Input
+          name="title"
+          id="title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -200,9 +228,14 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label>Description</Label>
-        <Subtext>{/* Populate subtext here */}</Subtext>
+        <Label htmlFor="description">Description</Label>
+        <Subtext>
+          1-2 paragraphs explaining what did you build and what problem(s) does
+          it solve?
+        </Subtext>
         <Textarea
+          name="description"
+          id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -213,14 +246,14 @@ return (
         <Subtext>Check the tracks you are opting in for</Subtext>
         <CheckboxGroup>
           {[
-            "Pagoda's Chain Signatures",
             "General Prize",
-            "Keypom",
-            "Metatransactions",
-            "Abstraction on BOS",
             "Mintbase",
+            "Keypom",
+            "Abstraction on BOS",
             "Postlock Bounty",
             "NEAR Balkans",
+            "Pagoda's Chain Signatures",
+            "Metatransactions",
           ].map((track) => (
             <CheckboxLabel key={track}>
               <CheckBox
@@ -235,9 +268,11 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label>Teammates</Label>
+        <Label htmlFor="teammates">Teammates</Label>
         <Subtext>@ the near addresses of your teammates</Subtext>
         <Input
+          name="teammates"
+          id="teammates"
           type="text"
           value={teammates}
           onChange={(e) => setTeammates(e.target.value)}
@@ -245,9 +280,13 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label>Project Link</Label>
-        <Subtext>Put a URL of your project</Subtext>
+        <Label htmlFor="projectLink">
+          Project's Public Github w/ Readme.md
+        </Label>
+        <Subtext>{/*Put a URL of your project*/}</Subtext>
         <Input
+          name="projectLink"
+          id="projectLink"
           type="text"
           value={projectLink}
           onChange={(e) => setProjectLink(e.target.value)}
@@ -255,28 +294,51 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label>Demo Link</Label>
-        <Subtext>Put a URL of your demo/pitch</Subtext>
+        <Label htmlFor="demoLink">Demo Link</Label>
+        <Subtext>Keep it under two minutes</Subtext>
         <Input
+          id="demoLink"
+          name="demoLink"
           type="text"
           value={demoLink}
           onChange={(e) => setDemoLink(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
-        <Label>Personal Contact Info</Label>
-        <Subtext>Email/Telegram</Subtext>
+        <Label htmlFor="contactInfo">
+          Contact Email<span className="text-danger">*</span>
+        </Label>
+        <Subtext>
+          This information will be on-chain and it is how we will communicate
+          with you and distribute prizes
+        </Subtext>
         <Input
+          name="contactInfo"
+          id="contactInfo"
           type="text"
           value={contactInfo}
           onChange={(e) => setContactInfo(e.target.value)}
         />
       </FormGroup>
+      <FormGroup>
+        <Label htmlFor="learning">What did you learn</Label>
+        <Subtext></Subtext>
+        <Textarea
+          name="learning"
+          id="learning"
+          value={learning}
+          onChange={(e) => setLearning(e.target.value)}
+        />
+      </FormGroup>
 
       <FormGroup>
-        <Label>How did you hear about this hackathon?</Label>
-        <Subtext>Developer DAO, 100x Devs, Build DAO, Twitter, ...</Subtext>
+        <Label htmlFor="referrer">How did you hear about this hackathon?</Label>
+        <Subtext>
+          ie: Developer DAO, 100x Devs, BuildDAO, NEAR DevHub, etc...
+        </Subtext>
         <Input
+          name="referrer"
+          id="referrer"
           type="text"
           value={referrer}
           onChange={(e) => setReferrer(e.target.value)}
@@ -288,10 +350,14 @@ return (
           type="checkbox"
           checked={consentChecked}
           onChange={() => setConsentChecked(!consentChecked)}
+          name="consent"
+          id="consent"
         />
-        <ConsentLabel>
-          I consent to my personal contact info being saved in the social.near
-          contract
+        <ConsentLabel htmlFor="consent">
+          By clicking here, you acknowledge that your responses above will be
+          stored permanently on the blockchain and are accessible to anyone
+          analyzing the social.near contract. Please ensure you are comfortable
+          with this before proceeding.<span className="text-danger">*</span>
         </ConsentLabel>
       </ConsentContainer>
       <SubmitButton
