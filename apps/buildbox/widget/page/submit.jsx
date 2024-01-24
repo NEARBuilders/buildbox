@@ -433,7 +433,7 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        disabled={!title || !contactInfo || !consentChecked || isEmailValid}
+        disabled={!title || !contactInfo || !consentChecked || !isEmailValid}
       >
         Submit
       </SubmitButton>
