@@ -8,8 +8,8 @@
 // libertydao.near/widget/Mapbox.
 
 const buttons = [
-  { icon: "bi bi-hammer", title: "Create", to: "/buildbox.near/widget/hackathon.create" },
-  { icon: "bi bi-hammer", title: "Browse", to: "/buildbox.near/widget/hackathon.browse" },
+  { icon: "bi bi-hammer", title: "Create", to: "?page=create" },
+  { icon: "bi bi-globe", title: "Browse", to: "?page=browse" },
 ];
 
 const ButtonGrid = ({ buttons }) => {

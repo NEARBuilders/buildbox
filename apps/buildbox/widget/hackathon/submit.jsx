@@ -1,75 +1,3 @@
-// this is where you can create a hackathon
-
-// then you have people submit projects to the hackathon, but they create the project locally
-
-const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || { normalize: (s) => s };
-
-const accountId = context.accountId;
-
-const admins = ["efiz.near"];
-
-if (!admins.includes(accountId)) {
-  // unauthorized, return 401
-  return <p>401 unauthorized.</p>;
-}
-
-const hackathons = Social.keys("*/test/hackathon/**", "final", {
-  return_type: "BlockHeight"
-});
-
-if (!hackathons) {
-  return <p>No hackathons found.</p>;
-}
-
-const hackathon = {
-  create: (v) => {
-    const { title, description, image, backgroundImage, category, tags } = v;
-    const id = normalize(title);
-    const hackathonPath = `${context.accountId}/test/hackathon/${normalize(title)}`;
-
-    Social.set({
-      post: {
-        main: JSON.stringify({
-          text: `I've just created a hackathon! #build #every #hackathon \n\n[EMBED](buildbox.near/widget/embed?hackathon=${hackathonPath})\n\n ${notes}`,
-          image: "",
-          type: "md",
-          metadata: {},
-        }),
-      },
-      every: {
-        hackathon: {
-          ["my-hackathon"]: {
-            // normalized title?
-            "": JSON.stringify({
-              linkedAccounts: {
-                admin: "",
-              },
-              // what data does a hackathon have?
-            }),
-            metadata: {
-              name: title,
-              description,
-              image,
-              backgroundImage,
-              type: "every.near/type/hackathon",
-              category,
-              tags,
-            },
-          },
-        },
-      },
-    });
-
-    return id;
-  },
-  get: (id) => {
-    if (Storage.get(id)) { // is there a more elegant way to do this? 
-      return Storage.get(id); // check mob.near and mattb.near
-    }
-    return Social.get(`*/every/hackathon/${id}`, "final");
-  }
-};
-
 /**
  * build box submit hackathon
  * or submit project to whatever hackathon is main
@@ -186,69 +114,89 @@ const handleCheckboxChange = (track) => {
   }
 };
 
+const normalize = (v) => {
+  // snag from devhub
+};
+
 const handleSubmit = () => {
-  if (true) {
-    const id = normalize(title);
-    const hackathonPath = `${context.accountId}/test/hackathon/${id}`;
+  if (contactInfo && consentChecked) {
+    const projectPath = `${context.accountId}/every/project/${normalize(title)}`;
     const notes = ""; // what I learned
+    // Add your submission logic here
+    console.log("Form submitted:", {
+      title,
+      description,
+      tracks,
+      teammates,
+      projectLink,
+      demoLink,
+      contactInfo,
+    });
 
     Social.set({
-      // post: {
-      //   main: JSON.stringify({
-      //     text: `I've just submitted my project to abstraction hacks #abstraction #hack #build #everything\n\n[EMBED](buildbox.near/widget/embed?project=${projectPath})\n\n ${notes}`,
-      //     image: "",
-      //     type: "md",
-      //     metadata: {},
-      //   }),
-      // },
-      test: {
+      post: {
+        main: JSON.stringify({
+          text: `I've just submitted my project to abstraction hacks #abstraction #hack #build #everything\n\n[EMBED](buildbox.near/widget/embed?project=${projectPath})\n\n ${notes}`,
+          image: "",
+          type: "md",
+          metadata: {},
+        }),
+      },
+      every: {
         // it's like we create a project and a submission at the same time
-        hackathon: {
-          [id]: {
+        project: {
+          "my-project": {
             // normalized title?
             "": JSON.stringify({
+              linkedAccounts: {
+                admin: "",
+              },
               tracks,
               teammates,
+              projectLink,
+              demoLink,
+              contactInfo,
+              repository,
             }),
             metadata: {
               title,
               description,
-              // image,
-              // backgroundImage,
-              // category: "", // this would be nice to be a thing stored somewhere
-              type: "every.near/type/hackathon", // this is type stored on chain, defines stringified JSON
+              image,
+              backgroundImage,
+              category: "", // this would be nice to be a thing stored somewhere
+              type: "every.near/type/project", // this is type stored on chain, defines stringified JSON
               tags: {},
             },
           },
         },
       },
-      // every: {
-      //   video: {
-      //     "my-video-title": {
-      //       // upload your video here (or attach link to elsewhere)
-      //       "": JSON.stringify({}),
-      //       metadata: {
-      //         title,
-      //         description,
-      //         image,
-      //         backgroundImage,
-      //         category: "",
-      //         tags: {
-      //           hack: "",
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
-      // buildbox: {
-      //   hackathon: {
-      //     "abstraction-hacks-W2024": {
-      //       submission: {
-      //         "----every/project----": "", // get from community voice, creates ID from accountId + project name
-      //       },
-      //     },
-      //   },
-      // },
+      every: {
+        video: {
+          "my-video-title": {
+            // upload your video here (or attach link to elsewhere)
+            "": JSON.stringify({}),
+            metadata: {
+              title,
+              description,
+              image,
+              backgroundImage,
+              category: "",
+              tags: {
+                hack: "",
+              },
+            },
+          },
+        },
+      },
+      buildbox: {
+        hackathon: {
+          "abstraction-hacks-W2024": {
+            submission: {
+              "----every/project----": "", // get from community voice, creates ID from accountId + project name
+            },
+          },
+        },
+      },
     });
   } else {
     // alert("Please provide your Personal Contact Info and consent to submit.");
@@ -257,7 +205,13 @@ const handleSubmit = () => {
 
 return (
   <Root>
-    <Header>create hackathon</Header>
+    <Header>Submit Project: Abstraction Hacks</Header>
+    <Subheader>
+      Post your submission for Abstraction Hacks. Add a link to your component,
+      GitHub, and tag your team members. On a checklist, indicate which tracks
+      you are opt-in for.
+    </Subheader>
+
     <FormContainer>
       <FormGroup>
         <Label>Title</Label>
@@ -314,6 +268,45 @@ return (
         />
       </FormGroup>
 
+      <FormGroup>
+        <Label>Project Link</Label>
+        <Subtext>Put a URL of your project</Subtext>
+        <Input
+          type="text"
+          value={projectLink}
+          onChange={(e) => setProjectLink(e.target.value)}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Label>Demo Link</Label>
+        <Subtext>Put a URL of your demo/pitch</Subtext>
+        <Input
+          type="text"
+          value={demoLink}
+          onChange={(e) => setDemoLink(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Personal Contact Info</Label>
+        <Subtext>Email/Telegram</Subtext>
+        <Input
+          type="text"
+          value={contactInfo}
+          onChange={(e) => setContactInfo(e.target.value)}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Label>How did you hear about this hackathon?</Label>
+        <Subtext>Developer DAO, 100x Devs, Build DAO, Twitter, ...</Subtext>
+        <Input
+          type="text"
+          value={referrer}
+          onChange={(e) => setReferrer(e.target.value)}
+        />
+      </FormGroup>
+
       <ConsentContainer>
         <ConsentCheckbox
           type="checkbox"
@@ -327,7 +320,7 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        // disabled={!contactInfo || !consentChecked}
+        disabled={!contactInfo || !consentChecked}
       >
         Submit
       </SubmitButton>

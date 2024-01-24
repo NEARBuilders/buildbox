@@ -2,10 +2,9 @@ const { page, layout, loading, ...passProps } = props;
 
 const { routes, theme } = VM.require("buildbox.near/widget/config") ?? {
   routes: {},
-  theme: "background-color: red;",
 };
 
-const { AppLayout } = VM.require("every.near/widget/layout") || {
+const { AppLayout } = VM.require("buildbox.near/widget/layout") || {
   AppLayout: () => <>Layout loading...</>,
 };
 
@@ -15,8 +14,6 @@ const Root = styled.div`
   a {
     color: inherit;
   }
-
-  ${theme}// can come from config
 `;
 
 const [activeRoute, setActiveRoute] = useState(page);
@@ -50,7 +47,7 @@ function Router({ active, routes }) {
   return (
     <div key={active}>
       <Widget
-        src="every.near/widget/thing"
+        src={src}
         props={{ ...passProps, ...defaultProps, path: src }}
       />
     </div>
@@ -71,7 +68,7 @@ const Content = styled.div`
 return (
   <Root>
     <Container>
-      <AppLayout Header={() => <></>} Footer={() => <></>}>
+      <AppLayout active={activeRoute} routes={routes}>
         <Content>
           <Router active={activeRoute} routes={routes} />
         </Content>
