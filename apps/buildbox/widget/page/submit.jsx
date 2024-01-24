@@ -11,19 +11,6 @@ const app = props.app || "test";
 
 const accountId = context.accountId;
 
-const things = Social.keys(`*/${app}/${type}/**`, "final", {
-  return_type: "BlockHeight",
-});
-
-if (!things) {
-  return <p>No {type}s found.</p>;
-}
-
-/**
- * build box submit hackathon
- * or submit project to whatever hackathon is main
- */
-
 const Root = styled.div`
   width: 100%;
   display: flex;
@@ -208,49 +195,52 @@ const handleCheckboxChange = (track) => {
 };
 
 const handleSubmit = () => {
-  if (contactInfo && consentChecked) {
-    const { title, description, image, backgroundImage, category, tags } = v; // comes fr
-    const id = normalize(title);
-    const path = `${context.accountId}/${app}/${type}/${id}`;
+  console.log("submitting");
+  // const { title, description, image, backgroundImage, category, tags } = v;
+  const id = normalize(title);
+  const path = `${context.accountId}/${app}/${type}/${id}`;
 
-    Social.set(
-      {
-        // post: {
-        //   main: JSON.stringify({
-        //     text: `I've just created a hackathon! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/embed?${type}=${path})\n\n`,
-        //     image: "",
-        //     type: "md",
-        //     metadata: {},
-        //   }),
-        // },
-        [app]: {
-          [type]: {
-            [id]: {
-              "": JSON.stringify({
-                // what data does a hackathon have?
-              }),
-              metadata: {
-                name: title,
-                description,
-                image,
-                backgroundImage,
-                type: `every.near/type/${type}`, // for later
-                category,
-                tags,
-              },
+  Social.set(
+    {
+      post: {
+        [app]: JSON.stringify({
+          text: `I've just created a hackathon! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/embed?${type}=${path})\n\n`,
+          image: "",
+          type: "md",
+          metadata: {},
+        }),
+      },
+      [app]: {
+        [type]: {
+          [id]: {
+            "": JSON.stringify({
+              tracks,
+              teammates,
+              projectLink,
+              demoLink,
+              contactInfo,
+              referrer,
+              learning,
+            }),
+            metadata: {
+              name: title,
+              description,
+              image,
+              backgroundImage,
+              type: `every.near/type/${type}`, // for later
+              category,
+              tags,
             },
           },
         },
       },
-      {
-        force: true,
-        onCommit: (v) => console.log("onCommit", v),
-        onCancel: (v) => console.log("onCancel", v),
-      }
-    );
-  } else {
-    // alert("Please provide your Personal Contact Info and consent to submit.");
-  }
+    },
+    {
+      force: true,
+      onCommit: (v) => console.log("onCommit", v),
+      onCancel: (v) => console.log("onCancel", v),
+    }
+  );
 };
 
 const pageDescription = `Congratulations for making it here! Please be sure to fill out all of the following fields in the suggested format so we can efficiently review them in the most efficient way.
