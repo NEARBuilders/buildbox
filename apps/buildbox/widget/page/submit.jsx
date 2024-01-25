@@ -195,20 +195,20 @@ const handleCheckboxChange = (track) => {
 };
 
 const handleSubmit = () => {
-  console.log("submitting");
-  // const { title, description, image, backgroundImage, category, tags } = v;
   const id = normalize(title);
   const path = `${context.accountId}/${app}/${type}/${id}`;
 
   Social.set(
     {
       post: {
-        [app]: JSON.stringify({
-          text: `I've just created a hackathon! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/embed?${type}=${path})\n\n`,
+        main: JSON.stringify({
+          text: `I've just created a ${type}! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/post.embed?${type}=${path})\n\n`,
           image: "",
           type: "md",
-          metadata: {},
         }),
+      },
+      index: {
+        post: JSON.stringify({ key: app, value: { type: "md" } }),
       },
       [app]: {
         [type]: {
@@ -228,8 +228,16 @@ const handleSubmit = () => {
               image,
               backgroundImage,
               type: `every.near/type/${type}`, // for later
-              category,
               tags,
+            },
+          },
+        },
+      },
+      buildbox: {
+        hackathon: {
+          abstractionhacks: {
+            submissions: {
+              [`${context.accountId}-${normalize(title)}`]: "",
             },
           },
         },
