@@ -7,7 +7,7 @@ return (
     index={[
       {
         action: "hashtag",
-        key: "hack",
+        key: "abstraction",
         options: {
           limit: 10,
           order: "desc",
