@@ -24,14 +24,44 @@ const HeroSection = styled.div`
   }
 `;
 
+
+const Header = styled.h1`
+  font-size: 90px;
+  max-width: 900px;
+  font-style: normal;
+  text-align: left;
+  font-weight: 500;
+  line-height: 108px;
+  text-transform: lowercase;
+
+  @media screen and (max-width: 768px) {
+    font-size: 36px;
+    max-width: 70%;
+    line-height: 43px;
+  }
+`;
+
+const Subheader = styled.p`
+  font-size: 24px;
+  max-width: 800px;
+  text-align: left;
+  line-height: 36px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+`;
+
 return (
   <>
     <HeroSection className="home-hero">
       <div className="home-heading">
-        <h1 className="home-header">
+        <Header>
           <span>🔨 📦 build box</span>
           <br />
-        </h1>
+        </Header>
+        <Subheader>hackathon platform</Subheader>
       </div>
     </HeroSection>
   </>
