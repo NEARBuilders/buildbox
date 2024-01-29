@@ -1,13 +1,9 @@
-// this is where you can create a hackathon
-
-// then you have people submit projects to the hackathon, but they create the project locally
-
 const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || {
   normalize: (s) => s,
 };
 
 const type = props.type || "project";
-const app = props.app || "test";
+const app = props.app || "every";
 
 const accountId = context.accountId;
 
@@ -76,6 +72,7 @@ const Label = styled.label`
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+  font-size: 24px;
 `;
 
 const Subtext = styled.p`
@@ -202,13 +199,13 @@ const handleSubmit = () => {
     {
       post: {
         main: JSON.stringify({
-          text: `I've just created a ${type}! #build #${app} #${type} \n\n[EMBED](buildbox.near/widget/post.embed?${type}=${path})\n\n`,
+          text: `I've just submitted a ${type} to Abstraction Hacks! #build #${app} #${type} #abstraction #hack \n\n[EMBED](buildbox.near/widget/post.embed?${type}=${path})\n\n`,
           image: "",
           type: "md",
         }),
       },
       index: {
-        post: JSON.stringify({ key: app, value: { type: "md" } }),
+        post: JSON.stringify({ key: "test", value: { type: "md" } }),
       },
       [app]: {
         [type]: {
@@ -293,7 +290,9 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description">
+          Description<span className="text-danger">*</span>
+        </Label>
         <Subtext>
           1-2 paragraphs explaining what did you build and what problem(s) does
           it solve?
@@ -307,7 +306,9 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label>Tracks</Label>
+        <Label>
+          Tracks<span className="text-danger">*</span>
+        </Label>
         <Subtext>Check the tracks you are opting in for</Subtext>
         <CheckboxGroup>
           {[
@@ -333,7 +334,9 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label htmlFor="teammates">Teammates</Label>
+        <Label htmlFor="teammates">
+          Teammates<span className="text-danger">*</span>
+        </Label>
         <Subtext>@ the near addresses of your teammates</Subtext>
         <Input
           name="teammates"
@@ -347,6 +350,7 @@ return (
       <FormGroup>
         <Label htmlFor="projectLink">
           Project's Public Github w/ Readme.md
+          <span className="text-danger">*</span>
         </Label>
         <Subtext>{/*Put a URL of your project*/}</Subtext>
         <Input
@@ -359,7 +363,9 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label htmlFor="demoLink">Demo Link</Label>
+        <Label htmlFor="demoLink">
+          Demo Link<span className="text-danger">*</span>
+        </Label>
         <Subtext>Keep it under two minutes</Subtext>
         <Input
           id="demoLink"
@@ -390,7 +396,9 @@ return (
         </span>
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="learning">What did you learn</Label>
+        <Label htmlFor="learning">
+          What did you learn?<span className="text-danger">*</span>
+        </Label>
         <Subtext></Subtext>
         <Textarea
           name="learning"
@@ -401,7 +409,10 @@ return (
       </FormGroup>
 
       <FormGroup>
-        <Label htmlFor="referrer">How did you hear about this hackathon?</Label>
+        <Label htmlFor="referrer">
+          How did you hear about this hackathon?
+          <span className="text-danger">*</span>
+        </Label>
         <Subtext>
           ie: Developer DAO, 100x Devs, BuildDAO, NEAR DevHub, etc...
         </Subtext>
@@ -431,7 +442,19 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        disabled={!title || !contactInfo || !consentChecked || !isEmailValid}
+        disabled={
+          !title ||
+          !description ||
+          tracks.length === 0 ||
+          !teammates ||
+          !projectLink ||
+          !demoLink ||
+          !contactInfo ||
+          !referrer ||
+          !learning ||
+          !consentChecked ||
+          !isEmailValid
+        }
       >
         Submit
       </SubmitButton>

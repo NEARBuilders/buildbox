@@ -1,8 +1,8 @@
 // Feed
 const app = props.app || "test";
-const type = props.type || "hackathon";
+const type = props.type || "project";
 
-const keys = Social.keys(`*/test/${type}/*`, "final", {
+const keys = Social.keys(`*/${app}/${type}/*`, "final", {
   return_type: "BlockHeight",
 });
 
