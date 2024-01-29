@@ -23,6 +23,13 @@ return {
         icon: "bi bi-globe",
       },
     },
+    feed: {
+      path: "buildbox.near/widget/page.feed",
+      blockHeight: "final",
+      init: {
+        icon: "bi bi-globe",
+      },
+    },
   },
   theme: "background-color: white;",
 };

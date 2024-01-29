@@ -1,9 +1,13 @@
+// this is where you can create a hackathon
+
+// then you have people submit projects to the hackathon, but they create the project locally
+
 const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || {
   normalize: (s) => s,
 };
 
+const app = props.app || "buildbox";
 const type = props.type || "project";
-const app = props.app || "every";
 
 const accountId = context.accountId;
 
@@ -199,18 +203,20 @@ const handleSubmit = () => {
     {
       post: {
         main: JSON.stringify({
-          text: `I've just submitted a ${type} to Abstraction Hacks! #build #${app} #${type} #abstraction #hack \n\n[EMBED](buildbox.near/widget/post.embed?${type}=${path})\n\n`,
+          text: `I've just submitted a ${type} to Abstraction Hacks! #build #${type} #abstraction #hack \n\n[EMBED](${path})\n\n`,
           image: "",
           type: "md",
         }),
       },
       index: {
-        post: JSON.stringify({ key: "test", value: { type: "md" } }),
+        post: JSON.stringify({ key: "main", value: { type: "md" } }),
       },
       [app]: {
         [type]: {
           [id]: {
             "": JSON.stringify({
+              title,
+              description,
               tracks,
               teammates,
               projectLink,
@@ -224,7 +230,7 @@ const handleSubmit = () => {
               description,
               image,
               backgroundImage,
-              type: `every.near/type/${type}`, // for later
+              type: `buildbox.near/type/${type}`, // for later
               tags,
             },
           },
@@ -248,13 +254,13 @@ const handleSubmit = () => {
   );
 };
 
-const pageDescription = `Congratulations for making it here! Please be sure to fill out all of the following fields in the suggested format so we can efficiently review them in the most efficient way.
+const pageDescription = `Congratulations for making it here! Please be sure to fill out all of the following fields in the suggested format so we can review them in the most efficient way.
 
 To be eligible for the Abstraction Hacks prize, you must:
 
-- Submit to only one team for General Prize. For Mintbase, Potluck you can submit multiple.
-- Have a public GitHub repository with a readme.md file.
-- Include a video to a demo in your readme.md file.
+- Submit to only one team for General Prize. For Mintbase, Potlock you can submit multiple.
+- Have a public GitHub repository with a README.md file.
+- Include a video to a demo in your README.md file.
 - If submitting a previous project, you must have made significant changes during the hackathon.
 - Specify which bounties you are tackling
 
@@ -262,7 +268,7 @@ To be eligible for the Abstraction Hacks prize, you must:
 
 - Submit to only one team: You may not submit the same project to multiple teams.
 - Public GitHub repository: Your GitHub repository must be public so that the judges can view your code.
-- Readme.md file: Your readme.md file should include a description of your project, how to run it, and any other relevant information.
+- README.md file: Your README.md file should include a description of your project, how to run it, and any other relevant information.
 - Video to a demo: Your video demo should show your project in action.
 - Significant changes: If submitting a previous project, you must have made significant changes during the hackathon and provide proof of what you changed during the hackathon. This could includes adding dates and timestamps of any code written before and after the hackathon (ie: adding new features, improving the performance of your code, or fixing bugs).`;
 

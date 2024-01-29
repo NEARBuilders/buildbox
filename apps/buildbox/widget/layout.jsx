@@ -14,8 +14,30 @@ const ContentContainer = styled.div`
   width: 100%;
 `;
 
-function Header() {
-  return <></>;
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+`;
+
+const Button = styled.button``;
+
+function Header({ active, routes }) {
+  return (
+    <>
+      <ButtonGroup>
+        {routes &&
+          (Object.keys(routes) || []).map((k) => {
+            return (
+              <Link key={k} to={`?page=${k}`}>
+                <Button key={k}>{k}</Button>
+              </Link>
+            );
+          })}
+      </ButtonGroup>
+    </>
+  );
 }
 
 function Footer() {
@@ -27,7 +49,7 @@ function AppLayout({ active, routes, children }) {
   return (
     <>
       <Container>
-        <Header />
+        <Header active={active} routes={routes} />
         <ContentContainer>{children}</ContentContainer>
         <Footer />
       </Container>

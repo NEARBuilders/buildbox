@@ -1,5 +1,5 @@
 // Feed
-const app = props.app || "test";
+const app = props.app || "buildbox";
 const type = props.type || "project";
 
 const keys = Social.keys(`*/${app}/${type}/*`, "final", {

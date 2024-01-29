@@ -6,8 +6,8 @@ return (
   <Feed
     index={[
       {
-        action: "post",
-        key: "test",
+        action: "hashtag",
+        key: "hack",
         options: {
           limit: 10,
           order: "desc",
