@@ -211,7 +211,7 @@ const handleSubmit = () => {
       index: {
         post: JSON.stringify({ key: "main", value: { type: "md" } }),
       },
-      [app]: {
+      buildbox: {
         [type]: {
           [id]: {
             "": JSON.stringify({
@@ -234,13 +234,11 @@ const handleSubmit = () => {
               tags,
             },
           },
-        },
-      },
-      buildbox: {
-        hackathon: {
-          abstractionhacks: {
-            submissions: {
-              [`${context.accountId}-${normalize(title)}`]: "",
+          hackathon: {
+            abstractionhacks: {
+              submissions: {
+                [`${context.accountId}-${normalize(title)}`]: "",
+              },
             },
           },
         },
