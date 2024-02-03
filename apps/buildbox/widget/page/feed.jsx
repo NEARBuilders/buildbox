@@ -6,29 +6,30 @@ return (
   <Feed
     index={[
       {
-        action: "hashtag",
-        key: "abstraction",
+        action: "post",
+        key: "main",
         options: {
           limit: 10,
           order: "desc",
+          accountId: ["surgecode.near"]
         },
         cacheOptions: {
           ignoreCache: true,
         },
         required: true
       },
-      {
-        action: "hashtag",
-        key: "hack",
-        options: {
-          limit: 10,
-          order: "desc",
-        },
-        cacheOptions: {
-          ignoreCache: true,
-        },
-        required: true
-      },
+      // {
+      //   action: "hashtag",
+      //   key: "hack",
+      //   options: {
+      //     limit: 10,
+      //     order: "desc",
+      //   },
+      //   cacheOptions: {
+      //     ignoreCache: true,
+      //   },
+      //   required: true
+      // },
     ]}
     Item={(p) => (
       <Widget
