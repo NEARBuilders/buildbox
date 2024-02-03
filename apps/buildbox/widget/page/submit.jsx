@@ -204,7 +204,7 @@ const handleSubmit = () => {
     {
       post: {
         main: JSON.stringify({
-          text: `I've just submitted a ${type} to Abstraction Hacks! #build #${type} #abstraction #hack \n\n[EMBED](${path})\n\n`,
+          text: `I've just submitted a ${type} to Abstraction Hacks! #build #${type} #abstraction #hack \n\n[EMBED](${path})\n\n # ${title}\n\n${description}\n\n### Teammates\n${teammates}\n\n### Tracks\n${tracks.join("\n")}\n\n ### Project Link\n${projectLink}\n\n### Demo\n${demoLink}\n\n### What I learned\n\n${learning}\n\n### Referral\n\n${referrer}`,
           image: "",
           type: "md",
         }),
