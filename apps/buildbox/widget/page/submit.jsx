@@ -198,6 +198,7 @@ const handleCheckboxChange = (track) => {
 const handleSubmit = () => {
   const id = normalize(title);
   const path = `${context.accountId}/${app}/${type}/${id}`;
+  const postItem = { type: "social", path: `${context.accountId}/post/main` };
 
   Social.set(
     {
@@ -210,6 +211,15 @@ const handleSubmit = () => {
       },
       index: {
         post: JSON.stringify({ key: "main", value: { type: "md" } }),
+        hashtag: JSON.stringify([
+          {
+            key: "abstraction",
+            value: postItem,
+          },
+          { key: "hack", value: postItem },
+          { key: "build", value: postItem },
+          { key: "project", value: postItem },
+        ]),
       },
       buildbox: {
         [type]: {
