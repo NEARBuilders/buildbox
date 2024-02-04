@@ -29,7 +29,7 @@ if (!keys) {
 }
 
 const flattenedKeys = flattenObject(keys);
-flattenedKeys = flattenedKeys.filter(s => !s.includes('/project/hackathon'));
+flattenedKeys = flattenedKeys.filter((s) => !s.includes("/project/hackathon"));
 
 const data = Social.get(flattenedKeys, "final");
 
@@ -181,9 +181,6 @@ function Item({ accountId, name, type, metadata }) {
 
 return (
   <Container>
-    <div className="d-flex justify-content-between align-items-center mb-3">
-      <h3>every {type}</h3>
-    </div>
     <Widget
       src="everycanvas.near/widget/ItemFeed"
       props={{
