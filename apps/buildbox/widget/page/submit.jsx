@@ -172,6 +172,7 @@ const [contactInfo, setContactInfo] = useState("");
 const [consentChecked, setConsentChecked] = useState(false);
 const [referrer, setReferrer] = useState("");
 const [learning, setLearning] = useState("");
+const [showToast, setShowToast] = useState(false);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const [isEmailValid, setIsEmailValid] = useState(true);
@@ -248,7 +249,7 @@ const handleSubmit = () => {
         hackathon: {
           abstractionhacks: {
             submissions: {
-              [`${context.accountId}-${normalize(title)}`]: "",
+              [`${context.accountId}-${id}`]: "",
             },
           },
         },
@@ -256,7 +257,7 @@ const handleSubmit = () => {
     },
     {
       force: true,
-      onCommit: (v) => console.log("onCommit", v),
+      onCommit: (v) => setShowToast(true),
       onCancel: (v) => console.log("onCancel", v),
     }
   );
@@ -456,22 +457,40 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        disabled={
-          !title ||
-          !description ||
-          tracks.length === 0 ||
-          !teammates ||
-          !projectLink ||
-          !demoLink ||
-          !contactInfo ||
-          !referrer ||
-          !learning ||
-          !consentChecked ||
-          !isEmailValid
-        }
+        // disabled={
+        //   !title ||
+        //   !description ||
+        //   tracks.length === 0 ||
+        //   !teammates ||
+        //   !projectLink ||
+        //   !demoLink ||
+        //   !contactInfo ||
+        //   !referrer ||
+        //   !learning ||
+        //   !consentChecked ||
+        //   !isEmailValid
+        // }
       >
         Submit
       </SubmitButton>
+      <div style={{ color: "black" }}>
+        <Widget
+          src="near/widget/DIG.Toast"
+          props={{
+            title: "Project Successfully Submitted",
+            type: "success",
+            open: showToast,
+            onOpenChange: (v) => State.update({ showToast: v }),
+            trigger: <></>,
+            action: (
+              <SubmitButton onClick={() => showToast(false)}>
+                dismiss
+              </SubmitButton>
+            ),
+            providerProps: { duration: 1000 },
+          }}
+        />
+      </div>
     </FormContainer>
   </Root>
 );
