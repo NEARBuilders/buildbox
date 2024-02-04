@@ -457,19 +457,19 @@ return (
       </ConsentContainer>
       <SubmitButton
         onClick={handleSubmit}
-        // disabled={
-        //   !title ||
-        //   !description ||
-        //   tracks.length === 0 ||
-        //   !teammates ||
-        //   !projectLink ||
-        //   !demoLink ||
-        //   !contactInfo ||
-        //   !referrer ||
-        //   !learning ||
-        //   !consentChecked ||
-        //   !isEmailValid
-        // }
+        disabled={
+          !title ||
+          !description ||
+          tracks.length === 0 ||
+          !teammates ||
+          !projectLink ||
+          !demoLink ||
+          !contactInfo ||
+          !referrer ||
+          !learning ||
+          !consentChecked ||
+          !isEmailValid
+        }
       >
         Submit
       </SubmitButton>
