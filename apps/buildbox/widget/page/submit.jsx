@@ -244,11 +244,11 @@ const handleSubmit = () => {
               tags,
             },
           },
-          hackathon: {
-            abstractionhacks: {
-              submissions: {
-                [`${context.accountId}-${normalize(title)}`]: "",
-              },
+        },
+        hackathon: {
+          abstractionhacks: {
+            submissions: {
+              [`${context.accountId}-${normalize(title)}`]: "",
             },
           },
         },
@@ -330,7 +330,7 @@ return (
             "Mintbase",
             "Keypom",
             "Abstraction on BOS",
-            "Postlock Bounty",
+            "Potlock Bounty",
             "NEAR Balkans",
             "Pagoda's Chain Signatures",
             "Metatransactions",

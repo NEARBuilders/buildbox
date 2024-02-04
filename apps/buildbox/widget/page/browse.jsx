@@ -29,6 +29,7 @@ if (!keys) {
 }
 
 const flattenedKeys = flattenObject(keys);
+flattenedKeys = flattenedKeys.filter(s => !s.includes('/project/hackathon'));
 
 const data = Social.get(flattenedKeys, "final");
 
@@ -72,7 +73,7 @@ const processData = useCallback(
     const allItems = accounts
       .map((account) => {
         const accountId = account[0];
-        
+
         return Object.entries(account[1][app][type]).map((kv) => {
           return {
             accountId,
