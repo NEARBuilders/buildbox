@@ -17,7 +17,7 @@ function flattenObject(obj, parentKey) {
       paths = paths.concat(flattenObject(obj[key], currentPath));
     } else {
       // paths.push(`${currentPath}@${obj[key]}`); // if we want blockHeight
-      paths.push(currentPath + "/**");
+      paths.push(currentPath);
     }
   });
 
@@ -132,7 +132,7 @@ function Item({ accountId, name, type, metadata }) {
 
       <div className="card-body">
         <Link
-          to={`/${accountId}/${type}/${name}`}
+          to={`/buildbox.near/widget/page.view?path=${accountId}/${app}/${type}/${name}`}
           style={{ textDecoration: "none" }}
         >
           <h5 className="card-title">
