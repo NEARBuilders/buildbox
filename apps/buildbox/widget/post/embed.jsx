@@ -57,7 +57,6 @@ const parseUrl = (url) => {
 const parseGlob = (path) => {
   assertString(path);
   const keysWithGlobs = [...EmbedMap.keys()].filter((key) => containsGlob(key));
-  console.log("keysWithGlobs", keysWithGlobs)
   const keysThatMatch = keysWithGlobs.filter((key) => findWithKey(key, href));
   if (keysThatMatch.length >= 1) {
     try {
@@ -81,7 +80,6 @@ const parsed = useMemo(() => {
 
   // try parsing embed link to glob if url failed
   const widgetSrc = parseGlob(href);
-  console.log("parsed", widgetSrc)
   if (!!widgetSrc) {
     return {
       widgetSrc,
