@@ -7,12 +7,15 @@
 
 const normalize = (text) =>
   text
-    .replaceAll(/[- \.]/g, "_")
-    .replaceAll(/[^\w]+/g, "")
-    .replaceAll(/_+/g, "-")
-    .replace(/^-+/, "")
-    .replace(/-+$/, "")
+    // Convert to lowercase
     .toLowerCase()
-    .trim("-");
+    // Replace spaces with dashes
+    .replace(/\s+/g, "-")
+    // Replace any non-alphanumeric characters (excluding dashes) with nothing
+    .replace(/[^a-z0-9-]/g, "")
+    // Replace multiple consecutive dashes with a single dash
+    .replace(/-+/g, "-")
+    // Trim dashes from the start and end of the string
+    .replace(/^-+|-+$/g, "");
 
 return { normalize };
