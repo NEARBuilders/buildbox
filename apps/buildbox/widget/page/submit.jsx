@@ -263,6 +263,20 @@ const handleSubmit = () => {
   );
 };
 
+if (!context.accountId) {
+  return (
+    <Root>
+      <HeaderContainer>
+        <Header>📦 Abstraction Hacks Projects Submission</Header>
+        <Subheader>
+          Please sign in to submit your project to the Abstraction Hacks
+          Hackathon.
+        </Subheader>
+      </HeaderContainer>
+    </Root>
+  );
+}
+
 const pageDescription = `Congratulations for making it here! Please be sure to fill out all of the following fields in the suggested format so we can review them in the most efficient way.
 
 To be eligible for the Abstraction Hacks prize, you must:
