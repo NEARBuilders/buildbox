@@ -89,7 +89,7 @@ return (
         <Label>Referrer:</Label> {referrer}
       </div>
       <div>
-        <Label>Learning:</Label> {learning}
+        <Label>What I learned:</Label> {learning}
       </div>
     </DetailContainer>
   </Root>
