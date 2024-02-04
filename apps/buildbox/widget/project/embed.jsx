@@ -79,6 +79,7 @@ const {
 } = JSON.parse(data[""]);
 
 return (
+  <Link to={`/buildbox.near/widget/page.view?path=${href}`}>
   <Root>
     <DetailContainer className="truncated-content">
       <Header>{title}</Header>
@@ -97,4 +98,5 @@ return (
       </div>
     </DetailContainer>
   </Root>
+  </Link>
 );
