@@ -6,10 +6,18 @@ const Root = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #292320;
+  background-color: rgb(28, 31, 51);
   color: #fff;
   gap: 5rem;
-  padding: 20px;
+  .link {
+    text-decoration: none;
+    color: #b0b0b0;
+  }
+
+  &:hover {
+    background-color: #23242c;
+    text-decoration: none;
+  }
 
   overflow: hidden;
   .truncated-content {
@@ -28,31 +36,33 @@ const Root = styled.div`
 
 const Header = styled.p`
   color: #fff;
-  font-size: 90px;
+  font-size: 24px;
   max-width: 900px;
   font-style: normal;
   text-align: left;
   font-weight: 500;
-  line-height: 108px;
+  line-height: 36px;
   text-transform: lowercase;
+  text-decoration: none;
 
   @media screen and (max-width: 768px) {
-    font-size: 36px !important;
+    font-size: 16px !important;
     max-width: 70%;
-    line-height: 43px;
   }
 `;
 
-const Subheader = styled.p`
+const Content = styled.p`
   color: rgb(255, 255, 255);
-  font-size: 24px;
+  font-size: 14px;
   max-width: 800px;
   text-align: left;
-  line-height: 36px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #b0b0b0;
+  line-height: 24px;
 
   @media screen and (max-width: 768px) {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 13px;
   }
 `;
 
@@ -60,6 +70,7 @@ const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 20px;
 `;
 
 const Label = styled.span`
@@ -79,24 +90,24 @@ const {
 } = JSON.parse(data[""]);
 
 return (
-  <Link to={`/buildbox.near/widget/page.view?path=${href}`}>
   <Root>
-    <DetailContainer className="truncated-content">
-      <Header>{title}</Header>
-      <Subheader>{description}</Subheader>
-      <div>
-        <Label>Tracks:</Label> {tracks && tracks.join(", ")}
-      </div>
-      <div>
-        <Label>Teammates:</Label> {teammates}
-      </div>
-      <div>
-        <Label>Project Link:</Label> <a href={projectLink}>{projectLink}</a>
-      </div>
-      <div>
-        <Label>Demo Link:</Label> <a href={demoLink}>{demoLink}</a>
-      </div>
-    </DetailContainer>
+    <Link to={`/buildbox.near/widget/page.view?path=${href}`} className="link">
+      <DetailContainer className="truncated-content">
+        <Header>{title}</Header>
+        <Content>{description}</Content>
+        <div>
+          <Label>Tracks:</Label> {tracks && tracks.join(", ")}
+        </div>
+        <div>
+          <Label>Teammates:</Label> {teammates}
+        </div>
+        <div>
+          <Label>Project Link:</Label> <a href={projectLink}>{projectLink}</a>
+        </div>
+        <div>
+          <Label>Demo Link:</Label> <a href={demoLink}>{demoLink}</a>
+        </div>
+      </DetailContainer>
+    </Link>
   </Root>
-  </Link>
 );

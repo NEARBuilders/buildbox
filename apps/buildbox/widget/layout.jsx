@@ -19,6 +19,7 @@ const ButtonGroup = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-bottom: 1rem;
 `;
 
 const Button = styled.button``;
