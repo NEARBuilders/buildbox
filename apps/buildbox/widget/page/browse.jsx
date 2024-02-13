@@ -39,7 +39,7 @@ if (!data) {
 
 const Container = styled.div`
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px auto 0;
   width: 100%;
   max-width: 1200px;
 `;
