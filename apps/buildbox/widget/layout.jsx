@@ -33,13 +33,15 @@ function Header({ active, routes }) {
       <ButtonGroup>
         {routes &&
           (Object.keys(routes) || []).map((k) => {
-            return (
-              <Link key={k} to={`?page=${k}`}>
-                <Button key={k} variant={active === k && "primary"}>
-                  {`${k.slice(0, 1).toUpperCase()}${k.slice(1)}`}
-                </Button>
-              </Link>
-            );
+            if (!routes[k].hide) {
+              return (
+                <Link key={k} to={`?page=${k}`}>
+                  <Button key={k} variant={active === k && "primary"}>
+                    {`${k.slice(0, 1).toUpperCase()}${k.slice(1)}`}
+                  </Button>
+                </Link>
+              );
+            }
           })}
       </ButtonGroup>
     </>

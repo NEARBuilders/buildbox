@@ -1,13 +1,14 @@
-const { path, backgroundImage } = props;
-const { User, Button } = VM.require("buildhub.near/widget/components");
+const { id, backgroundImage } = props;
+const { User, Button } = VM.require("buildhub.near/widget/components") || {
+  User: () => <></>,
+  Button: () => <></>,
+};
 
-const data = Social.get(path + "/**", "final");
+const data = Social.get(id + "/**", "final");
 
-if (!data) {
-  return <p>Project not found: {path}</p>;
+if (!id || !data) {
+  return <p>Project not found: {id}</p>;
 }
-
-console.log("img: ", backgroundImage);
 
 const Root = styled.div`
   width: 100%;
@@ -204,23 +205,28 @@ function isNearAddress(address) {
   return true;
 }
 
-// removing extra characters and splitting the string into an array
-const teammatesArray = teammates.replace(/[\[\]\(\)@]/g, "").split(/[\s,]+/);
+function Team({ members }) {
+  if (members) {
+    console.log("members: ", members);
+    // removing extra characters and splitting the string into an array
+    const arr = members.replace(/[\[\]\(\)@]/g, "").split(/[\s,]+/);
 
-console.log("teammatesArray: ", teammatesArray);
+    // filtering out teammates that are not near addresses
+    const hexRegex = /^[0-9A-F\-_]+$/i;
+    const valid = arr.filter((teammate) => {
+      if (hexRegex.test(teammate)) {
+        return teammate;
+      }
+      return isNearAddress(teammate);
+    });
 
-const hexRegex = /^[0-9A-F\-_]+$/i;
-// filtering out teammates that are not near addresses
-const validTeammates = teammatesArray.filter((teammate) => {
-  if (hexRegex.test(teammate)) {
-    return teammate;
+    return valid.map((teammate) => (
+      <User accountId={teammate} variant={"mobile"} />
+    ));
+  } else {
+    return <></>;
   }
-  return isNearAddress(teammate);
-});
-
-const teamMates = validTeammates.map((teammate) => (
-  <User accountId={teammate} variant={"mobile"} />
-));
+}
 
 const defaultImage =
   "https://ipfs.near.social/ipfs/bafkreihi3qh72njb3ejg7t2mbxuho2vk447kzkvpjtmulsb2njd6m2cfgi";
@@ -236,7 +242,9 @@ return (
       <div className="sidebar">
         <div className="d-flex flex-column gap-3 flex-wrap">
           <Label>Team</Label>{" "}
-          <div className="d-flex gap-2 flex-wrap">{teamMates}</div>
+          <div className="d-flex gap-2 flex-wrap">
+            <Team members={teammates} />
+          </div>
         </div>
         <hr />
         <div className="tracks gap-3">

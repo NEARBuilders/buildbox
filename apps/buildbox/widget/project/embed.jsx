@@ -91,7 +91,7 @@ const {
 
 return (
   <Root>
-    <Link to={`/buildbox.near/widget/page.view?path=${href}`} className="link">
+    <Link to={`/buildbox.near/widget/app?page=view&id=${href}`} className="link">
       <DetailContainer className="truncated-content">
         <Header>{title}</Header>
         <Content>{description}</Content>

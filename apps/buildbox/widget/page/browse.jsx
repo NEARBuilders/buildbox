@@ -161,7 +161,7 @@ function Item({ accountId, name, type, metadata }) {
 
       <div className="card-body">
         <Link
-          to={`/buildbox.near/widget/page.view?path=${accountId}/${app}/${type}/${name}`}
+          to={`/buildbox.near/widget/app?page=view&id=${accountId}/${app}/${type}/${name}`}
           style={{ textDecoration: "none" }}
         >
           <h5 className="card-title mt-3">
