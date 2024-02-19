@@ -5,7 +5,9 @@ const type = props.type || "project";
 const keys = Social.keys(`*/${app}/${type}/*`, "final", {
   return_type: "BlockHeight",
 });
-const { Avatar } = VM.require("buildhub.near/widget/components");
+const { Avatar } = VM.require("buildhub.near/widget/components") || {
+  Avatar: () => <></>,
+};
 
 function flattenObject(obj, parentKey) {
   parentKey = parentKey ?? "";

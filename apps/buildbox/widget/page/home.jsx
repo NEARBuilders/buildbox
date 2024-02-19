@@ -2,7 +2,9 @@
  * build box home
  */
 
-const { Button } = VM.require("buildhub.near/widget/components");
+const { Button } = VM.require("buildhub.near/widget/components") || {
+  Button: () => <></>
+};
 
 const Root = styled.div`
   height: calc(100vh - 60px);
