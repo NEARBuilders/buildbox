@@ -77,7 +77,8 @@ const Root = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: 460px;
+    // height: 460px;
+    height: auto;
     overflow-y: scroll;
     iframe {
       width: 100%;
@@ -283,7 +284,9 @@ return (
         <div className="sec">
           <h3>Project Demo</h3>
           <div className="embedDemo">
-            <iframe src={demoLink} title="Demo"></iframe>
+            <Button href={demoLink} target="_blank" noLink={true}>
+              Demo
+            </Button>
           </div>
         </div>
         <div className="sec">
