@@ -20,12 +20,11 @@ const HeroSection = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
+    ${'' /* padding: 2rem; */}
     color: #fff;
 
     .home-heading {
       flex: 1;
-      max-width: 60%;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -52,7 +51,6 @@ const Header = styled.h1`
 
   @media screen and (max-width: 768px) {
     font-size: 36px;
-    max-width: 70%;
     line-height: 43px;
   }
 `;
