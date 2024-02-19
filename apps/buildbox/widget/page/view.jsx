@@ -113,7 +113,7 @@ const Title = styled.h1`
 
   @media screen and (max-width: 768px) {
     font-size: 26px;
-    max-width: 70%;
+    text-align: center;
   }
 `;
 
