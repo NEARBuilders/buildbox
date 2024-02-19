@@ -5,6 +5,7 @@ const type = props.type || "project";
 const keys = Social.keys(`*/${app}/${type}/*`, "final", {
   return_type: "BlockHeight",
 });
+const { Avatar } = VM.require("buildhub.near/widget/components");
 
 function flattenObject(obj, parentKey) {
   parentKey = parentKey ?? "";
@@ -39,15 +40,15 @@ if (!data) {
 
 const Container = styled.div`
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px auto 0;
   width: 100%;
-  max-width: 1200px;
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  padding: 10px;
 
   @media (min-width: 576px) {
     grid-gap: 15px;
@@ -63,6 +64,26 @@ const Grid = styled.div`
     &:hover {
       transform: scale(1.03); // Subtle scale effect on hover
     }
+  }
+
+  .card-img-top {
+    position: relative;
+  }
+
+  .card-body {
+    padding: 10px 20px 0 10px;
+    overflow: scroll;
+    text-overflow: elipsis;
+  }
+
+  .user-avatar {
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+  }
+  .card-bottom {
+    border-top: 1px solid #0005;
+    padding: 5px 10px 0 10px;
   }
 `;
 
@@ -108,6 +129,8 @@ function Item({ accountId, name, type, metadata }) {
   const defaultImage =
     "https://ipfs.near.social/ipfs/bafkreihi3qh72njb3ejg7t2mbxuho2vk447kzkvpjtmulsb2njd6m2cfgi";
 
+  const image = metadata.backgroundImage || defaultImage;
+
   return (
     <div
       className="card"
@@ -118,25 +141,31 @@ function Item({ accountId, name, type, metadata }) {
         flexDirection: "column",
         justifyContent: "space-between",
         overflow: "hidden",
+        backgroundColor: "#17181C",
+        color: "#fff",
       }}
     >
       <div
         className="card-img-top"
         style={{
-          backgroundImage: `url(${metadata.backgroundImage || defaultImage})`,
+          backgroundImage: `url(${image})`,
           height: "80px",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-      />
+      >
+        <div className="user-avatar">
+          <Avatar variant={"mobile"} accountId={accountId} />
+        </div>
+      </div>
 
       <div className="card-body">
         <Link
-          to={`/buildbox.near/widget/page.view?path=${accountId}/${app}/${type}/${name}`}
+          to={`/buildbox.near/widget/app?page=view&id=${accountId}/${app}/${type}/${name}`}
           style={{ textDecoration: "none" }}
         >
-          <h5 className="card-title">
-            {accountId}/{displayName}
+          <h5 className="card-title mt-3">
+            {displayName.length > 23 ? `${displayName.slice(0, 17)}...` : displayName}
           </h5>
         </Link>
         {metadata.description && (
@@ -150,7 +179,7 @@ function Item({ accountId, name, type, metadata }) {
       </div>
       {context.accountId && (
         <div
-          className="pb-2"
+          className="pb-2 card-bottom"
           style={{ display: "flex", justifyContent: "flex-end", gap: "4px" }}
         >
           <Widget

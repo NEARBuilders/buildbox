@@ -6,6 +6,8 @@ const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || {
   normalize: (s) => s,
 };
 
+const { Button } = VM.require("buildhub.near/widget/components");
+
 const app = props.app || "buildbox";
 const type = props.type || "project";
 
@@ -15,40 +17,35 @@ const Root = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #292320;
+  background-color: #0b0c14;
+  ${"" /* background-color: #292320; */}
   color: #fff;
   gap: 5rem;
-
+  margin: 0 auto;
   padding: 64px 80px;
 `;
 
 const Header = styled.h1`
   color: #fff;
-  font-size: 90px;
-  max-width: 900px;
+  font-size: min(8vw, 40px);
   font-style: normal;
-  text-align: left;
-  font-weight: 500;
-  line-height: 108px;
-  text-transform: lowercase;
+  text-align: center;
+  font-weight: 900;
 
   @media screen and (max-width: 768px) {
-    font-size: 36px;
-    max-width: 70%;
-    line-height: 43px;
+    font-size: 18px;
   }
 `;
 
 const Subheader = styled.p`
   color: rgb(255, 255, 255);
-  font-size: 24px;
+  font-size: 16px;
   max-width: 800px;
   text-align: left;
-  line-height: 36px;
+  opacity: 0.6;
 
   @media screen and (max-width: 768px) {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 13px;
   }
 `;
 
@@ -469,7 +466,7 @@ return (
           with this before proceeding.<span className="text-danger">*</span>
         </ConsentLabel>
       </ConsentContainer>
-      <SubmitButton
+      <Button
         onClick={handleSubmit}
         disabled={
           !title ||
@@ -484,9 +481,10 @@ return (
           !consentChecked ||
           !isEmailValid
         }
+        variant="primary"
       >
         Submit
-      </SubmitButton>
+      </Button>
       <div style={{ color: "black" }}>
         <Widget
           src="near/widget/DIG.Toast"
@@ -497,9 +495,9 @@ return (
             onOpenChange: (v) => State.update({ showToast: v }),
             trigger: <></>,
             action: (
-              <SubmitButton onClick={() => showToast(false)}>
+              <Button onClick={() => showToast(false)} variant="primary">
                 dismiss
-              </SubmitButton>
+              </Button>
             ),
             providerProps: { duration: 1000 },
           }}

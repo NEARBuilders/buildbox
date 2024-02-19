@@ -30,6 +30,15 @@ return {
         icon: "bi bi-globe",
       },
     },
+    view: {
+      path: "buildbox.near/widget/page.view",
+      blockHeight: "final",
+      init: {
+        icon: "bi bi-globe",
+        path: undefined
+      },
+      hide: true
+    },
   },
   theme: "background-color: white;",
 };
