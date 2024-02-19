@@ -12,7 +12,6 @@ console.log("img: ", backgroundImage);
 const Root = styled.div`
   width: 100%;
   background-color: #0b0c14;
-  max-width: 1440px;
   margin: 0 auto;
   .main {
     padding: 24px 44px;
@@ -29,6 +28,16 @@ const Root = styled.div`
       flex-direction: column;
       gap: 1rem;
       padding-right: 14px;
+      & > div {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      hr {
+        border: 1px solid #2f3242;
+      }
     }
     .rhs {
       flex: 1;
@@ -51,14 +60,14 @@ const Root = styled.div`
           justify-content: center;
           align-items: center;
         }
-        div a div>div:nth-child(2) {
+        div a div > div:nth-child(2) {
           display: none !important;
         }
       }
       .rhs {
         width: 100%;
-        .sec{
-            text-align: center;
+        .sec {
+          text-align: center;
         }
       }
     }
@@ -131,6 +140,7 @@ const Label = styled.span`
 
   @media screen and (max-width: 768px) {
     font-size: 16px;
+    text-align: center;
   }
 `;
 
@@ -142,7 +152,10 @@ const Tracks = styled.div`
   font-weight: 500;
   margin-bottom: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
   .track-pill {
     padding: 0.3em 0.5em;
     border-radius: 8px;

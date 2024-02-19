@@ -7,6 +7,7 @@ const Container = styled.div`
   height: 100%;
   min-height: 100vh;
   max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const ContentContainer = styled.div`
@@ -25,7 +26,6 @@ const ButtonGroup = styled.div`
   margin: 0 auto;
   padding-bottom: 1.5rem;
 `;
-
 
 function Header({ active, routes }) {
   return (
