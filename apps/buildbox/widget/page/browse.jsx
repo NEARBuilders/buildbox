@@ -5,6 +5,7 @@ const type = props.type || "project";
 const keys = Social.keys(`*/${app}/${type}/*`, "final", {
   return_type: "BlockHeight",
 });
+const { Avatar } = VM.require("buildhub.near/widget/components");
 
 function flattenObject(obj, parentKey) {
   parentKey = parentKey ?? "";
@@ -64,6 +65,16 @@ const Grid = styled.div`
       transform: scale(1.03); // Subtle scale effect on hover
     }
   }
+
+  .card-body {
+    position: relative;
+  }
+
+  .user-avatar {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+  }
 `;
 
 const processData = useCallback(
@@ -108,6 +119,8 @@ function Item({ accountId, name, type, metadata }) {
   const defaultImage =
     "https://ipfs.near.social/ipfs/bafkreihi3qh72njb3ejg7t2mbxuho2vk447kzkvpjtmulsb2njd6m2cfgi";
 
+  const image = metadata.backgroundImage || defaultImage;
+
   return (
     <div
       className="card"
@@ -123,7 +136,7 @@ function Item({ accountId, name, type, metadata }) {
       <div
         className="card-img-top"
         style={{
-          backgroundImage: `url(${metadata.backgroundImage || defaultImage})`,
+          backgroundImage: `url(${image})`,
           height: "80px",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -131,12 +144,15 @@ function Item({ accountId, name, type, metadata }) {
       />
 
       <div className="card-body">
+        <div className="user-avatar">
+          <Avatar variant={"mobile"} accountId={accountId} />
+        </div>
         <Link
           to={`/buildbox.near/widget/page.view?path=${accountId}/${app}/${type}/${name}`}
           style={{ textDecoration: "none" }}
         >
-          <h5 className="card-title">
-            {accountId}/{displayName}
+          <h5 className="card-title mt-3">
+          {displayName}
           </h5>
         </Link>
         {metadata.description && (
