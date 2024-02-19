@@ -14,6 +14,9 @@ const Root = styled.div`
   a {
     color: inherit;
   }
+  background-color: #0b0c14;
+  padding: 1rem;
+  height: 100%;
 `;
 
 const [activeRoute, setActiveRoute] = useState(page);
@@ -56,7 +59,7 @@ function Router({ active, routes }) {
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: 100%;
 `;
 
 const Content = styled.div`

@@ -1,5 +1,5 @@
 const { path, backgroundImage } = props;
-const { User } = VM.require("buildhub.near/widget/components");
+const { User, Button } = VM.require("buildhub.near/widget/components");
 
 const data = Social.get(path + "/**", "final");
 
@@ -151,8 +151,6 @@ const Tracks = styled.div`
     white-space: nowrap;
   }
 `;
-
-const { Button } = VM.require("buildhub.near/widget/components");
 
 const {
   title,

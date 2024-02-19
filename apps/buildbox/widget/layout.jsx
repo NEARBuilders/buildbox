@@ -1,3 +1,5 @@
+const { Button } = VM.require("buildhub.near/widget/components");
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,10 +22,10 @@ const ButtonGroup = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  margin-bottom: 1rem;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
 `;
 
-const { Button } = VM.require("buildhub.near/widget/components");
 
 function Header({ active, routes }) {
   return (

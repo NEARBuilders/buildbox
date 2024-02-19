@@ -40,7 +40,7 @@ const Header = styled.p`
   max-width: 900px;
   font-style: normal;
   text-align: left;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 36px;
   text-transform: lowercase;
   text-decoration: none;
