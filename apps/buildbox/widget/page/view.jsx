@@ -208,7 +208,6 @@ function isNearAddress(address) {
 
 function Team({ members }) {
   if (members) {
-    console.log("members: ", members);
     // removing extra characters and splitting the string into an array
     const arr = members.replace(/[\[\]\(\)@]/g, "").split(/[\s,]+/);
 
@@ -221,7 +220,20 @@ function Team({ members }) {
       return isNearAddress(teammate);
     });
 
-    return valid.map((teammate) => (
+    const extractNearAddress = (id) => {
+      const parts = id.split("/");
+      if (parts.length > 0) {
+        return parts[0];
+      }
+      return "";
+    };
+
+    valid.unshift(extractNearAddress(id));
+
+    // making sure the array is unique
+    const unique = [...new Set(valid)];
+
+    return unique.map((teammate) => (
       <User accountId={teammate} variant={"mobile"} />
     ));
   } else {
