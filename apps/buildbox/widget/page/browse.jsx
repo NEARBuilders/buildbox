@@ -1,38 +1,13 @@
+const { fetchProjects } = VM.require("buildbox.near/widget/utils.projects-sdk");
+//   || {
+//   fetchProjects: () => {},
+// };
+const { Avatar } = VM.require("buildhub.near/widget/components");
 // Feed
 const app = props.app || "buildbox";
 const type = props.type || "project";
 
-const keys = Social.keys(`*/${app}/${type}/*`, "final", {
-  return_type: "BlockHeight",
-});
-const { Avatar } = VM.require("buildhub.near/widget/components");
-
-function flattenObject(obj, parentKey) {
-  parentKey = parentKey ?? "";
-  let paths = [];
-
-  Object.keys(obj).forEach((key) => {
-    const currentPath = parentKey ? `${parentKey}/${key}` : key;
-
-    if (typeof obj[key] === "object") {
-      paths = paths.concat(flattenObject(obj[key], currentPath));
-    } else {
-      // paths.push(`${currentPath}@${obj[key]}`); // if we want blockHeight
-      paths.push(currentPath);
-    }
-  });
-
-  return paths;
-}
-
-if (!keys) {
-  return "Loading...";
-}
-
-const flattenedKeys = flattenObject(keys);
-flattenedKeys = flattenedKeys.filter((s) => !s.includes("/project/hackathon"));
-
-const data = Social.get(flattenedKeys, "final");
+const data = fetchProjects(app, type);
 
 if (!data) {
   return "Loading...";
@@ -115,6 +90,8 @@ const processData = useCallback(
 
 const items = processData(data);
 
+console.log("items: ", data);
+
 if (!items) {
   return "Loading data...";
 }
@@ -165,7 +142,9 @@ function Item({ accountId, name, type, metadata }) {
           style={{ textDecoration: "none" }}
         >
           <h5 className="card-title mt-3">
-            {displayName.length > 23 ? `${displayName.slice(0, 17)}...` : displayName}
+            {displayName.length > 23
+              ? `${displayName.slice(0, 17)}...`
+              : displayName}
           </h5>
         </Link>
         {metadata.description && (
