@@ -6,7 +6,9 @@ const { normalize } = VM.require("buildbox.near/widget/utils.stringUtils") || {
   normalize: (s) => s,
 };
 
-const { Button } = VM.require("buildhub.near/widget/components");
+const { Button } = VM.require("buildhub.near/widget/components") || {
+  Button: () => <></>,
+};
 
 const app = props.app || "buildbox";
 const type = props.type || "project";

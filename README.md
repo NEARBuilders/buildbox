@@ -13,4 +13,5 @@ There is a branch of this repository that is testing bos-workspace#1.0.0.wip -- 
 
 - [ ] Teammates auto completes (accountIdAutocomplete from editors)
 - [ ] Add Livepeer support (add upload video from efiz.near/widget/App.Video.create)
-- [ ] Add image and background image
+- [ ] Add image and background image customization to projects
+

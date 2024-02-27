@@ -77,7 +77,8 @@ const Root = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: 460px;
+    // height: 460px;
+    height: auto;
     overflow-y: scroll;
     iframe {
       width: 100%;
@@ -274,10 +275,10 @@ return (
         <div className="d-flex flex-column gap-3">
           <Label>Links</Label>
           <div className="d-flex gap-2">
-            <Button href={projectLink} target="_blank">
+            <Button href={projectLink} target="_blank" noLink={true}>
               Project GitHub
             </Button>
-            <Button href={demoLink} target="_blank">
+            <Button href={demoLink} target="_blank" noLink={true}>
               Demo
             </Button>
           </div>
@@ -295,7 +296,9 @@ return (
         <div className="sec">
           <h3>Project Demo</h3>
           <div className="embedDemo">
-            <iframe src={demoLink} title="Demo"></iframe>
+            <Button href={demoLink} target="_blank" noLink={true}>
+              Demo
+            </Button>
           </div>
         </div>
         <div className="sec">
