@@ -1,7 +1,8 @@
-const { fetchProjects } = VM.require("buildbox.near/widget/utils.projects-sdk");
-//   || {
-//   fetchProjects: () => {},
-// };
+const { fetchProjects } = VM.require(
+  "buildbox.near/widget/utils.projects-sdk"
+) || {
+  fetchProjects: () => {},
+};
 const { Avatar } = VM.require("buildhub.near/widget/components");
 // Feed
 const app = props.app || "buildbox";
