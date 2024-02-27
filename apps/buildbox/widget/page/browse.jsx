@@ -8,7 +8,6 @@ const { Avatar } = VM.require("buildhub.near/widget/components");
 const app = props.app || "buildbox";
 const type = props.type || "project";
 
-
 const data = fetchProjects(app, type);
 
 if (!data) {
