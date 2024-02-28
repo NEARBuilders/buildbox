@@ -20,7 +20,6 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #0b0c14;
-  ${"" /* background-color: #292320; */}
   color: #fff;
   gap: 5rem;
   margin: 0 auto;
